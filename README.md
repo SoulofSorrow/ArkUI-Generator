@@ -7,6 +7,8 @@ Dieses Repository enthält ein Python-Skript zum Erstellen einer bearbeitbaren S
 
 ## Funktionen
 
+[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=924619115)
+
 - **Anpassbare Schaltflächen**: Sie können den Text von bis zu 5 Schaltflächen auf der Haupt-Benutzeroberfläche bearbeiten.
 
 - **Link-Schaltflächen**: Fügen Sie Links zu Ihrer Benutzeroberfläche hinzu, um schnell darauf zuzugreifen. Passen Sie den Text und die URL für jeden Link an.
