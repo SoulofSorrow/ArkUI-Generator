@@ -1,56 +1,49 @@
-# ArkUI-Generator
+# ArkUI Generator
+[![de](https://img.shields.io/badge/lang-de-yello)](https://github.com/SoulofSorrow/ArkUI-Generator/blob/main/README.de.md)
 
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
 ![Tkinter](https://img.shields.io/badge/Tkinter-8.6%2B-blue)
 
-Dieses Repository enthält ein Python-Skript zum Erstellen einer bearbeitbaren Server-Benutzeroberfläche unter Verwendung der Tkinter-Bibliothek. Diese Benutzeroberfläche ermöglicht es Ihnen, verschiedene Aspekte Ihrer Server-Benutzeroberfläche anzupassen, einschließlich der Texte von Schaltflächen, Tab-Titeln, Farben und mehr.
+This repository contains a Python script for creating an editable server user interface using the Tkinter library. This interface allows you to customize various aspects of your server UI, including button text, tab titles, colors, and more.
 
-## Funktionen
+## Features
 
 [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=924619115)
 
-- **Anpassbare Schaltflächen**: Sie können den Text von bis zu 5 Schaltflächen auf der Haupt-Benutzeroberfläche bearbeiten.
+- **Customizable Buttons**: You can edit the text of up to 5 buttons on the main user interface.
 
-- **Link-Schaltflächen**: Fügen Sie Links zu Ihrer Benutzeroberfläche hinzu, um schnell darauf zuzugreifen. Passen Sie den Text und die URL für jeden Link an.
+- **Link Buttons**: Add links to your interface for quick access, customizing the text and URL for each link.
 
-- **Tab-basierte Benutzeroberfläche**: Erstellen Sie bis zu 5 Registerkarten mit anpassbaren Titeln und Textinhalten.
+- **Tab-Based Interface**: Create up to 5 tabs with customizable titles and text content.
 
-- **Farbanpassung**: Ändern Sie die Hintergrund- und Textfarben, um sie an das Thema Ihres Servers anzupassen.
+- **Color Customization**: Change background and text colors to match your server's theme.
 
-- **Speicherung der Daten in JSON**: Die UI-Daten werden in einer JSON-Datei gespeichert, was das Speichern und Laden Ihrer Konfigurationen einfach macht.
+- **Data Storage in JSON**: UI data is stored in a JSON file, making it easy to save and load your configurations.
 
-## Voraussetzungen
+## Requirements
 
-- Python 3.7 oder höher
-- Tkinter 8.6 oder höher
+- Python 3.7 or higher
+- Tkinter 8.6 or higher
 
-## Verwendung
+## Usage
 
-1. Klonen Sie dieses Repository oder laden Sie das Skript `progende.py` herunter.
+1. Clone this repository or download the `progende.py` script.
 
-2. Führen Sie das Skript mit Python aus:
+2. Run the script using Python:
 
    ```bash
    python progende.py
    ```
+3. The user interface will open, allowing you to customize the server UI.
 
-1. Die Benutzeroberfläche wird geöffnet und ermöglicht es Ihnen, die Server-Benutzeroberfläche anzupassen..
+4. Make your changes to button text, tab titles, colors, and other settings.
 
-2. Nehmen Sie Ihre Änderungen an Schaltflächentexten, Tab-Titeln, Farben und anderen Einstellungen vor.
+5. Click the "Save" button to save your changes to a JSON file.
 
-3. Klicken Sie auf die Schaltfläche "Speichern", um Ihre Änderungen in einer JSON-Datei zu speichern.
+6. To load your saved configuration, click the "Open" button and select your JSON file.
 
-4. Um Ihre gespeicherte Konfiguration zu laden, klicken Sie auf die Schaltfläche "Öffnen" und wählen Sie Ihre JSON-Datei aus.
+7. If you want to save the JSON data as a single line, use the "Save as Single Line" button.
 
-5. Wenn Sie die JSON-Daten als Einzeiler speichern möchten, verwenden Sie die Schaltfläche "Speichern als Einzeiler".
+## Contributions
+Feel free to contribute to this project by creating issues, submitting pull requests, or proposing new features and improvements.
 
-## Beitrag
-Fühlen Sie sich frei, zu diesem Projekt beizutragen, indem Sie Probleme erstellen, Pull-Anfragen einreichen oder neue Funktionen und Verbesserungen vorschlagen.
-
-## Lizenz
-Dieses Projekt steht unter der MIT-Lizenz - siehe die Datei LICENSE für weitere Details.
-
-Danksagungen
-Ein besonderer Dank geht an die Tkinter-Bibliothek, die eine einfache Möglichkeit bietet, grafische Benutzeroberflächen in Python zu erstellen.
-
-Viel Spaß beim Anpassen Ihrer Server-Benutzeroberfläche mit Progende Script!
