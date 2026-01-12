@@ -1,0 +1,193 @@
+name: Python QA Checks
+# Python checks (usually tox matrix) to ensure code quality for PRs and merging
+# Runs on pull requests
+
+on: pull_request
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2.10.2
+        id: filter
+        with:
+          filters: |
+            python:
+              - '**.py'
+              - 'tox.ini'
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        if: steps.filter.outputs.python == 'true'
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+
+      - name: Run Tox Linting
+        if: steps.filter.outputs.python == 'true'
+        run: tox
+        env:
+          TOXENV: lint
+
+  unittest:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        toxenv:
+          - py38-unittest
+          - py39-unittest
+          - py310-unittest
+          - py311-unittest
+          - py312-unittest
+        include:
+          - toxenv: py38-unittest
+            python-version: "3.8"
+          - toxenv: py39-unittest
+            python-version: "3.9"
+          - toxenv: py310-unittest
+            python-version: "3.10"
+          - toxenv: py311-unittest
+            python-version: "3.11"
+          - toxenv: py311-unittest
+            python-version: "3.12"
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2.10.2
+        id: filter
+        with:
+          filters: |
+            python:
+              - '**.py'
+              - 'tox.ini'
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        if: steps.filter.outputs.python == 'true'
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: Install Tox
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+
+      - name: Run Tox
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          tox -e ${{ matrix.toxenv }}
+
+      - name: Dump Test Coverage
+        if: steps.filter.outputs.python == 'true' && matrix.toxenv == 'py312-unittest'
+        run: |
+          pip install coverage
+          coverage xml
+
+      - name: Store Test Coverage
+        if: steps.filter.outputs.python == 'true' && matrix.toxenv == 'py312-unittest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: |
+            ./.coverage
+            ./coverage.xml
+
+  coverage:
+    runs-on: ubuntu-latest
+    name: Coverage
+    needs:
+      - unittest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: dorny/paths-filter@v2.10.2
+        id: filter
+        with:
+          filters: |
+            python:
+              - '**.py'
+              - 'tox.ini'
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        if: steps.filter.outputs.python == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Install Coverage & diff_cover
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage diff_cover
+
+      - name: Retrieve Coverage Results
+        if: steps.filter.outputs.python == 'true'
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: coverage
+
+      - name: Overall Coverage
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          coverage report
+
+      - name: Check Coverage Diff
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          diff-cover ./coverage.xml --compare-branch=origin/main --fail-under=100
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build Python Package and Upload to TestPyPi
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2.10.2
+        id: filter
+        with:
+          filters: |
+            python:
+              - '**.py'
+              - 'pyproject.toml'
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        if: steps.filter.outputs.python == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Install Flit
+        if: steps.filter.outputs.python == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install flit
+
+      - name: Build Python Package and Upload to TestPyPi
+        if: steps.filter.outputs.python == 'true'
+        env:
+          FLIT_USERNAME: __token__
+          FLIT_PASSWORD: ${{ secrets.TESTPYPI_TOKEN }}
+          FLIT_INDEX_URL: https://test.pypi.org/legacy/
+        run: |
+          flit install --symlink --deps production
+          export VERSION_TAG=dev${GITHUB_RUN_ID}; flit publish
+
+      - name: Store Python Package as Artifact
+        uses: actions/upload-artifact@v2.2.4
+        if: steps.filter.outputs.python == 'true'
+        with:
+          name: dist
+          path: dist/
