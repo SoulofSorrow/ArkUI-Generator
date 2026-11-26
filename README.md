@@ -47,3 +47,8 @@ This repository contains a Python script for creating an editable server user in
 ## Contributions
 Feel free to contribute to this project by creating issues, submitting pull requests, or proposing new features and improvements.
 
+
+## Documentation
+
+- `docs/README.md`: index of the technical docs and the change records in `docs/changes/`.
+- `AGENTS.md`: instructions for AI coding agents; `CLAUDE.md` imports it.

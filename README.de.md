@@ -47,3 +47,8 @@ Dieses Repository enthält ein Python-Skript zum Erstellen einer bearbeitbaren S
 
 ## Beitrag
 Fühlen Sie sich frei, zu diesem Projekt beizutragen, indem Sie Probleme erstellen, Pull-Anfragen einreichen oder neue Funktionen und Verbesserungen vorschlagen.
+
+## Dokumentation
+
+- `docs/README.md`: Index der technischen Dokumentation und der Change-Records unter `docs/changes/`.
+- `AGENTS.md`: Arbeitsanweisungen für KI-Coding-Agents; `CLAUDE.md` importiert sie.
